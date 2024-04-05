@@ -1,0 +1,27 @@
+{
+    "name": "nestforge",
+    "version": "1.0.23",
+    "description": "Um script para criar módulos NestJS rapidamente.",
+    "main": "dist/index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "ts-node src/index.ts",
+        "publicar": "npm version patch && npm run build && npm publish"
+    },
+    "bin": {
+        "nestforge": "./dist/index.js"
+    },
+    "keywords": [
+        "nestjs",
+        "module",
+        "cli"
+    ],
+    "author": "GuiCardilho",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/node": "^20.12.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.4"
+    },
+    "type": "module"
+}
