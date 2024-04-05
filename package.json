@@ -10,7 +10,7 @@
         "prepublishOnly": "npm run build"
     },
     "bin": {
-        "nestforge": "./dist/index.js"
+        "tnf": "./dist/index.js"
     },
     "keywords": [
         "nestjs",
