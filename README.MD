@@ -8,8 +8,6 @@
 
 <h1 style="text-align: center;">⭐ NestForge</h1>
 
-<hr>
-
 <p>O <code>nestforge</code> é uma ferramenta CLI projetada para acelerar o desenvolvimento de módulos no framework NestJS, permitindo a criação rápida de estruturas de módulos com controllers, services e módulos prontos para uso.</p>
 
 <h2>🔗 Instalação</h2>
