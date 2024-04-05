@@ -1,6 +1,6 @@
 {
-    "name": "nestforge",
-    "version": "1.0.25",
+    "name": "tnf",
+    "version": "1.0.0",
     "description": "Um script para criar módulos NestJS rapidamente.",
     "main": "dist/index.js",
     "scripts": {
