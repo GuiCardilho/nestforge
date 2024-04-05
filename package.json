@@ -6,7 +6,8 @@
     "scripts": {
         "build": "tsc",
         "start": "ts-node src/index.ts",
-        "publicar": "npm version patch && npm run build && npm publish"
+        "publicar": "npm version patch && npm run build && npm publish",
+        "prepublishOnly": "npm run build"
     },
     "bin": {
         "nestforge": "./dist/index.js"
