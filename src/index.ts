@@ -15,20 +15,22 @@ function createFile(filePath: string, content: string): void {
     fs.writeFileSync(filePath, content);
 }
 
-function replacePlaceholders(template: string, moduleName: string): string {
-    return template
-        .replace(
-            /\[Name\]/g,
-            moduleName.charAt(0).toUpperCase() + moduleName.slice(1)
-        )
-        .replace(/\[name\]/g, moduleName.toLowerCase());
+function toCamelCase(str: string) {
+    return str.replace(/-./g, (match) => match.charAt(1).toUpperCase());
 }
 
-const moduleName = process.argv[2].toLowerCase();
-const moduleNameCapitalized =
-    moduleName.charAt(0).toUpperCase() + moduleName.slice(1);
+function toPascalCase(str: string) {
+    const camelCase = toCamelCase(str);
+    return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
+}
 
-const basePath = process.cwd(); // Obtém o diretório de trabalho atual
+const rawModuleName = process.argv[2];
+const moduleName = toCamelCase(rawModuleName);
+const moduleNameCapitalized = toPascalCase(rawModuleName);
+
+const basePath = process.argv[3]
+    ? path.resolve(process.argv[3])
+    : process.cwd();
 const dirPath = createModuleDir(moduleName, basePath);
 
 // Templates

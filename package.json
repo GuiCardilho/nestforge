@@ -1,16 +1,16 @@
 {
-    "name": "tnf",
-    "version": "1.0.1",
+    "name": "nestforge",
+    "version": "1.0.0",
     "description": "Um script para criar módulos NestJS rapidamente.",
     "main": "dist/index.js",
     "scripts": {
         "build": "tsc",
-        "start": "ts-node src/index.ts",
+        "start": "node --loader ts-node/esm  src/index.ts",
         "publicar": "npm version patch && npm run build && npm publish",
         "prepublishOnly": "npm run build"
     },
     "bin": {
-        "tnf": "./dist/index.js"
+        "nestforge": "./dist/index.js"
     },
     "keywords": [
         "nestjs",
