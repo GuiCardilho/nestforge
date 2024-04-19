@@ -9,7 +9,7 @@ import { SecureController } from '@/decorators/secure.decorator';
 import { ${moduleCapitalized}Service } from './${moduleLowerCap}.service';
 
 @SecureController({
-    path: 'apikey',
+    path: '${moduleLowerCap}',
     role: '',
 })
 export class ${moduleCapitalized}Controller {
