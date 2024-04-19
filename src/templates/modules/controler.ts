@@ -5,7 +5,6 @@ export const controllerTemplate = (module: string) => {
     const moduleLowerCap = lowerCapitalize(module);
 
     return `
-import { Controller } from '@nestjs/common';
 import { SecureController } from '@/decorators/secure.decorator';
 
 import { ${moduleCapitalized}Service } from './${moduleLowerCap}.service';
