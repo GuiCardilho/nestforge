@@ -1,63 +1,29 @@
 #!/usr/bin/env node
 
-import fs from "fs";
 import path from "path";
 
-function createModuleDir(moduleName: string, basePath: string): string {
-    const dirPath = path.join(basePath, moduleName);
-    if (!fs.existsSync(dirPath)) {
-        fs.mkdirSync(dirPath, { recursive: true });
-    }
-    return dirPath;
-}
+import { createFile, createModuleDir } from "./utils/files";
+import { capitalize, lowerCapitalize } from "./utils/string";
 
-function createFile(filePath: string, content: string): void {
-    fs.writeFileSync(filePath, content);
-}
+import { controllerTemplate as controller } from "./templates/modules/controler";
+import { moduleTemplate as module } from "./templates/modules/module";
+import { serviceTemplate as service } from "./templates/modules/service";
 
-function toCamelCase(str: string) {
-    return str.replace(/-./g, (match) => match.charAt(1).toUpperCase());
-}
-
-function toPascalCase(str: string) {
-    const camelCase = toCamelCase(str);
-    return camelCase.charAt(0).toUpperCase() + camelCase.slice(1);
-}
-
+// Funções auxiliares
 const rawModuleName = process.argv[2];
-const moduleName = toCamelCase(rawModuleName);
-const moduleNameCapitalized = toPascalCase(rawModuleName);
+const moduleName = lowerCapitalize(rawModuleName);
+const moduleNameCapitalized = capitalize(rawModuleName);
 
+// Diretório base
 const basePath = process.argv[3]
     ? path.resolve(process.argv[3])
     : process.cwd();
 const dirPath = createModuleDir(moduleName, basePath);
 
 // Templates
-const controllerTemplate = `import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { ${moduleNameCapitalized}Service } from './${moduleName}.service';
-
-@ApiTags('${moduleNameCapitalized}')
-@Controller('${moduleName}')
-export class ${moduleNameCapitalized}Controller {
-  constructor(private readonly ${moduleName}Service: ${moduleNameCapitalized}Service) {}
-}`;
-
-const moduleTemplate = `import { Module } from '@nestjs/common';
-import { ${moduleNameCapitalized}Controller } from './${moduleName}.controller';
-import { ${moduleNameCapitalized}Service } from './${moduleName}.service';
-
-@Module({
-  controllers: [${moduleNameCapitalized}Controller],
-  providers: [${moduleNameCapitalized}Service],
-})
-export class ${moduleNameCapitalized}Module {}`;
-
-const serviceTemplate = `import { Injectable } from '@nestjs/common';
-
-@Injectable()
-export class ${moduleNameCapitalized}Service {}`;
+const controllerTemplate = controller(rawModuleName);
+const moduleTemplate = module(rawModuleName);
+const serviceTemplate = service(rawModuleName);
 
 // Criação de arquivos baseados nos templates
 createFile(
@@ -67,5 +33,6 @@ createFile(
 createFile(path.join(dirPath, `${moduleName}.module.ts`), moduleTemplate);
 createFile(path.join(dirPath, `${moduleName}.service.ts`), serviceTemplate);
 
+// Mensagem de sucesso
 console.log(`🚀 - Módulo ${moduleNameCapitalized} criado com sucesso.`);
 console.log(`⭐ - Os arquivos foram criados em: ${dirPath}`);
