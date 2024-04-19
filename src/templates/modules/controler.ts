@@ -6,12 +6,13 @@ export const controllerTemplate = (module: string) => {
 
     return `
 import { Controller } from '@nestjs/common';
+import { SecureController } from '@/decorators/secure.decorator';
+
 import { ${moduleCapitalized}Service } from './${moduleLowerCap}.service';
 
 @SecureController({
     path: 'apikey',
-    role: 'USER',
-    func: validateSeller,
+    role: '',
 })
 export class ${moduleCapitalized}Controller {
     constructor(private readonly ${moduleLowerCap}Service: ${moduleCapitalized}Service) {}
