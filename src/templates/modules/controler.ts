@@ -6,7 +6,6 @@ export const controllerTemplate = (module: string) => {
 
     return `
 import { SecureController } from '@/decorators/secure.decorator';
-
 import { ${moduleCapitalized}Service } from './${moduleLowerCap}.service';
 
 @SecureController({
